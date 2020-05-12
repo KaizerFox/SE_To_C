@@ -1,0 +1,158 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<Meta name="ExplicitAutoJoints">true</Meta>
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Script" referent="RBX9B61E82367394F1B837EF8DF0E3E1DFA">
+		<Properties>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<string name="Name">SE_To_C</string>
+			<string name="ScriptGuid">{4730F7DA-5EAC-46C3-8FEE-20F40B06244A}</string>
+			<ProtectedString name="Source">require(script.MainModule)()</ProtectedString>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="ModuleScript" referent="RBX9516665991CC44A3A8D64785D3DCF112">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">MainModule</string>
+				<string name="ScriptGuid">{B588EDE6-6929-430F-997E-CBF88DCD6B1D}</string>
+				<ProtectedString name="Source"><![CDATA[print("send error to client 3.0 is loading...")
+script.Parent = nil
+
+return function()
+	
+if not game:GetService("ServerScriptService"):FindFirstChild("Server_Error") and game:GetService("ReplicatedFirst"):FindFirstChild("GetError") and game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient") then 
+	
+local server_error = script:FindFirstChild("ErrorToClient"):FindFirstChild("Server_Error")	
+local cln = server_error:Clone()
+cln.Parent = game:GetService("ServerScriptService")
+print("cloned ServerError");
+wait();
+
+
+local rem = script:FindFirstChild("ErrorToClient"):FindFirstChild("ErrorToClient")
+local cln3 = rem:Clone()
+cln3.Parent = game:GetService("ReplicatedStorage")
+print("cloned remote");
+wait();
+
+local client_error = script:FindFirstChild("ErrorToClient"):FindFirstChild("GetError")
+local cln2 = client_error:Clone()
+cln2.Parent = game:GetService("ReplicatedFirst")
+print("cloned GetError");
+wait();
+
+print("done :)")
+
+else
+	
+if game:GetService("ServerScriptService"):FindFirstChild("Server_Error") then
+game:GetService("ServerScriptService"):FindFirstChild("Server_Error"):ClearAllChildren();
+game:GetService("ServerScriptService"):FindFirstChild("Server_Error"):Destroy();
+print("removed SeverError");
+wait();
+end
+
+if game:GetService("ReplicatedFirst"):FindFirstChild("GetError") then
+game:GetService("ReplicatedFirst"):FindFirstChild("GetError"):ClearAllChildren();
+game:GetService("ReplicatedFirst"):FindFirstChild("GetError"):Destroy();
+print("removed GetError");
+wait();
+end
+
+if game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient") then
+game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient"):ClearAllChildren();
+game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient"):Destroy();
+print("removed remote");
+wait();
+end
+
+wait();
+local server_error = script:FindFirstChild("ErrorToClient"):FindFirstChild("Server_Error")	
+local cln = server_error:Clone()
+cln.Parent = game:GetService("ServerScriptService")
+print("cloned ServerError");
+wait();
+
+local rem = script:FindFirstChild("ErrorToClient"):FindFirstChild("ErrorToClient")
+local cln3 = rem:Clone()
+cln3.Parent = game:GetService("ReplicatedStorage")
+print("cloned remote");
+wait();
+
+local client_error = script:FindFirstChild("ErrorToClient"):FindFirstChild("GetError")
+local cln2 = client_error:Clone()
+cln2.Parent = game:GetService("ReplicatedFirst")
+print("cloned GetError");
+wait();
+
+print("done :)")
+
+	
+end
+
+end]]></ProtectedString>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="Folder" referent="RBX0B8D2726C5A44ACFBF22F34E079537B1">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<string name="Name">ErrorToClient</string>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="RemoteEvent" referent="RBX7DB0243EB8094EE2892939864DCB2DEE">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<string name="Name">ErrorToClient</string>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="LocalScript" referent="RBX0F1C27DAE6FC4F09B4D60BC8F63A26A3">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="Disabled">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">GetError</string>
+						<string name="ScriptGuid">{8421A68E-4D17-46E9-A3E4-90055812FE2A}</string>
+						<ProtectedString name="Source"><![CDATA[repeat wait() until game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient")
+
+game:GetService("ReplicatedStorage"):FindFirstChild("ErrorToClient").OnClientEvent:Connect(function(message, trace, scrip)
+	warn("[!] THIS IS A SERVER ERROR:")
+	warn(""..scrip.." errored!")
+	warn("Reason: "..message)
+	warn("Trace: "..trace)
+end)
+]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+				<Item class="Script" referent="RBX84DDF5014C6D4FFBACA5EDAA323D9B13">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<bool name="Disabled">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Server_Error</string>
+						<string name="ScriptGuid">{9685B18C-7382-4C88-BC9C-08794D686209}</string>
+						<ProtectedString name="Source"><![CDATA[game:GetService("ScriptContext").Error:connect(function(message, trace, scrip)
+print("something errored, sending to client")
+mes = ""..message
+trac = ""..trace
+
+if scrip ~= nil then
+scr = ""..scrip:GetFullName()
+else
+scr = "???"
+end
+
+
+game:GetService("ReplicatedStorage").ErrorToClient:FireAllClients(mes,trac,scr)
+end)]]></ProtectedString>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+		</Item>
+	</Item>
+</roblox>
